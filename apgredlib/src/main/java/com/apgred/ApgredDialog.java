@@ -12,6 +12,7 @@ import android.support.v7.app.AlertDialog;
 public final class ApgredDialog {
 
     private static ApgredDialog INSTANCE = null;
+    private boolean mIsSoftupdate = false;
 
 
     private ApgredDialog() {
@@ -30,9 +31,10 @@ public final class ApgredDialog {
     }
 
 
-    private void showDialog(Context context, String dialogTitle, String dialogMessage,
+    public void showDialog(Context context, String dialogTitle, String dialogMessage,
                             String playStoreUrl, boolean isSoftupdate, String positiveButtonText, String cancelButtonText) {
         AlertDialog.Builder mAlertDialogBuilder;
+        mIsSoftupdate = isSoftupdate;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mAlertDialogBuilder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
         } else {
@@ -43,14 +45,19 @@ public final class ApgredDialog {
         mAlertDialogBuilder.setPositiveButton(positiveButtonText, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                if (mIsSoftupdate) {
+                    new SoftUpdate().softUpdateOkay();
+                } else {
+                    new ForceUpdate().forceUpdateOkay();
+                }
+                //TODO redirect to play store version
             }
         });
         if (isSoftupdate) {
             mAlertDialogBuilder.setNegativeButton(cancelButtonText, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-
+                    new SoftUpdate().softUpdateCancel();
                 }
             });
         } else {

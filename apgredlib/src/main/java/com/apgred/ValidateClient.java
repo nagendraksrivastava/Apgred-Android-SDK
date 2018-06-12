@@ -23,14 +23,15 @@ final class ValidateClient {
                     public void onResponse(Call<ValidateResponse> call, Response<ValidateResponse> response) {
                         ValidateResponse validateResponse = response.body();
                         int code = validateResponse.getStatus().getCode();
-                        if (code == 200){
-                            // validated successfully
+                        if (code == 200) {
                             new Register().regsiterDevice();
-                        }else if (code == 800){
+                        } else if (code == 800) {
                             //  client is registered but app not registered
-                        }else if (code == 400){
+                            // send event to us
+                        } else if (code == 400) {
                             // client is not registered please talk to us
                             // throw an exception
+                            // send event to us
                         }
                     }
 

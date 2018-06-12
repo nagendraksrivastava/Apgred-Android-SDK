@@ -27,8 +27,6 @@ public class Apgred {
     }
 
     public void init(Context context, String clientSecret, String token) {
-        // STEP ONE regsiter the device
-        // first check the client validity
         ValidateRequest validateRequest = new ValidateRequest();
         validateRequest.setAppToken(token);
         validateRequest.setClientSecret(clientSecret);

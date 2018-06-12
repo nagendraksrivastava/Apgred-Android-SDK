@@ -1,6 +1,9 @@
 package com.apgred;
 
+import com.apgred.pojo.ForceUpdateModel;
+import com.apgred.pojo.HardUpdateOkayModel;
 import com.apgred.pojo.RegisterModel;
+import com.apgred.pojo.SoftUpdateOkayModel;
 import com.apgred.pojo.SoftupdateCancelModel;
 import com.apgred.pojo.ValidateResponse;
 import com.apgred.request.ValidateRequest;
@@ -25,11 +28,11 @@ public interface ApgredRestClient {
     Call<SoftupdateCancelModel> softUpdateCancelled();
 
     @POST("/softupdate")
-    Call<RegisterModel> softUpdateOkay();
+    Call<SoftUpdateOkayModel> softUpdateOkay();
 
     @POST("/hardupdate")
-    Call<RegisterModel> hardUpdateOkay();
+    Call<HardUpdateOkayModel> hardUpdateOkay();
 
     @POST("/forceupdate")
-    Call<RegisterModel> forceUpdate();
+    Call<ForceUpdateModel> forceUpdate();
 }

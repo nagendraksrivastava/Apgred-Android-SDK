@@ -18,7 +18,7 @@ public class Register {
                 .enqueue(new Callback<RegisterModel>() {
                     @Override
                     public void onResponse(Call<RegisterModel> call, Response<RegisterModel> response) {
-
+                        new ForceUpdate().checkForceUpdate();
                     }
 
                     @Override
