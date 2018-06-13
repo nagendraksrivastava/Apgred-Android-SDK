@@ -1,8 +1,10 @@
 package com.apgred;
 
+import android.app.Application;
 import android.content.Context;
 
-import com.apgred.request.ValidateRequest;
+import com.apgred.interfaces.ForceUpdateCallback;
+import com.apgred.pojo.ForceUpdateModel;
 
 /**
  * Created by nagendrasrivastava on 10/06/18.
@@ -27,10 +29,10 @@ public class Apgred {
     }
 
     public void init(Context context, String clientSecret, String token) {
-        ValidateRequest validateRequest = new ValidateRequest();
-        validateRequest.setAppToken(token);
-        validateRequest.setClientSecret(clientSecret);
-        new ValidateClient().validateClient(validateRequest);
+        if (!(context instanceof Application)) {
+            throw new IllegalArgumentException("Context must application context which can " +
+                    "be get by using getApplicationContext() ");
+        }
+        new ValidateImpl(context).validateClient(token, clientSecret);
     }
-
 }

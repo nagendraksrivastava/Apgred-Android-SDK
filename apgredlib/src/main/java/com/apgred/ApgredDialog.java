@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.os.Build;
 import android.support.v7.app.AlertDialog;
 
+import com.apgred.interfaces.ForceUpdateCallback;
+
 /**
  * Created by nagendrasrivastava on 10/06/18.
  */
@@ -32,7 +34,8 @@ public final class ApgredDialog {
 
 
     public void showDialog(Context context, String dialogTitle, String dialogMessage,
-                            String playStoreUrl, boolean isSoftupdate, String positiveButtonText, String cancelButtonText) {
+                           String playStoreUrl, boolean isSoftupdate, String positiveButtonText,
+                           String cancelButtonText, final ForceUpdateCallback forceUpdateCallback) {
         AlertDialog.Builder mAlertDialogBuilder;
         mIsSoftupdate = isSoftupdate;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -46,9 +49,9 @@ public final class ApgredDialog {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (mIsSoftupdate) {
-                    new SoftUpdate().softUpdateOkay();
+                    new SoftUpdate().softUpdateOkay(forceUpdateCallback);
                 } else {
-                    new ForceUpdate().forceUpdateOkay();
+                    new ForceUpdate().forceUpdateOkay(forceUpdateCallback);
                 }
                 //TODO redirect to play store version
             }
@@ -57,7 +60,7 @@ public final class ApgredDialog {
             mAlertDialogBuilder.setNegativeButton(cancelButtonText, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    new SoftUpdate().softUpdateCancel();
+                    new SoftUpdate().softUpdateCancel(forceUpdateCallback);
                 }
             });
         } else {

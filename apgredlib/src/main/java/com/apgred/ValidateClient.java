@@ -1,6 +1,8 @@
 package com.apgred;
 
-import com.apgred.pojo.RegisterModel;
+import android.content.Context;
+
+import com.apgred.interfaces.ValidateCallback;
 import com.apgred.pojo.ValidateResponse;
 import com.apgred.request.ValidateRequest;
 
@@ -14,7 +16,7 @@ import retrofit2.Response;
 
 final class ValidateClient {
 
-    void validateClient(ValidateRequest validateRequest) {
+    void validateClient(ValidateRequest validateRequest, final ValidateCallback validateCallback) {
         ApgredNetworkClient.getInstance()
                 .getRestClient()
                 .validateClient(validateRequest)
@@ -24,20 +26,17 @@ final class ValidateClient {
                         ValidateResponse validateResponse = response.body();
                         int code = validateResponse.getStatus().getCode();
                         if (code == 200) {
-                            new Register().regsiterDevice();
+                            validateCallback.onValidationSuccess();
                         } else if (code == 800) {
-                            //  client is registered but app not registered
-                            // send event to us
+                            validateCallback.onValidationFailure();
                         } else if (code == 400) {
-                            // client is not registered please talk to us
-                            // throw an exception
-                            // send event to us
+                            validateCallback.onValidationFailure();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ValidateResponse> call, Throwable t) {
-
+                        validateCallback.onValidationFailure();
                     }
                 });
 
