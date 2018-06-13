@@ -10,7 +10,7 @@ import com.apgred.pojo.ForceUpdateModel;
  * Created by nagendrasrivastava on 10/06/18.
  */
 
-public class Apgred {
+public final class Apgred {
 
     private static Apgred INSTANCE;
 

@@ -10,9 +10,11 @@ public class ForceUpdateImpl implements ForceUpdateCallback {
 
 
     private Context mContext;
+    private ForceUpdateCallback mForceUpdateCallback;
 
-    ForceUpdateImpl(Context context) {
-        mContext = context;
+    ForceUpdateImpl(Context context, ForceUpdateCallback forceUpdateCallback) {
+        this.mContext = context;
+        this.mForceUpdateCallback = forceUpdateCallback;
     }
 
     public void checkForceUpdate() {
@@ -25,12 +27,12 @@ public class ForceUpdateImpl implements ForceUpdateCallback {
             ApgredDialog.getInstance().showDialog(
                     mContext, forceUpdateModel.getDialogTitle(), forceUpdateModel.getDialogText(),
                     forceUpdateModel.getStoreUrl(), false,
-                    forceUpdateModel.getDialogPostiveText(), forceUpdateModel.getDialogCancelButton());
+                    forceUpdateModel.getDialogPostiveText(), forceUpdateModel.getDialogCancelButton(), mForceUpdateCallback);
         } else if (forceUpdateModel.getSoftPush()) {
             ApgredDialog.getInstance().showDialog(
                     mContext, forceUpdateModel.getDialogTitle(), forceUpdateModel.getDialogText(),
                     forceUpdateModel.getStoreUrl(), true,
-                    forceUpdateModel.getDialogPostiveText(), forceUpdateModel.getDialogCancelButton());
+                    forceUpdateModel.getDialogPostiveText(), forceUpdateModel.getDialogCancelButton(), mForceUpdateCallback);
         }
     }
 

@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by nagendrasrivastava on 10/06/18.
  */
 
-public class ApgredNetworkClient {
+public final class ApgredNetworkClient {
 
     private String BASE_URL = "somthing over here ";
     private static ApgredNetworkClient INSTANCE;
