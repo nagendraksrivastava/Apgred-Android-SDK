@@ -13,17 +13,19 @@ public class ApgredDialogActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog);
         ForceUpdateModel forceUpdateModel = getIntent().getParcelableExtra("force_update_model");
-        showEditDialog(forceUpdateModel);
+        String clientSecret = getIntent().getStringExtra("client_secret");
+        String clientToken = getIntent().getStringExtra("client_token");
+        showEditDialog(forceUpdateModel, clientSecret, clientToken);
     }
 
-    private void showEditDialog(ForceUpdateModel forceUpdateModel) {
+    private void showEditDialog(ForceUpdateModel forceUpdateModel, String clientSecret, String clientToken) {
         FragmentManager fm = getSupportFragmentManager();
-        ApgredDialogFragment alertDialog = ApgredDialogFragment.newInstance(forceUpdateModel);
+        ApgredDialogFragment alertDialog = ApgredDialogFragment.newInstance(forceUpdateModel, clientSecret, clientToken);
         alertDialog.show(fm, "fragment_alert");
     }
 
     @Override
     public void onBackPressed() {
-        
+
     }
 }

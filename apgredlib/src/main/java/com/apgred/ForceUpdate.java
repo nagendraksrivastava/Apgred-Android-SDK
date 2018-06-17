@@ -5,6 +5,7 @@ import com.apgred.interfaces.ForceUpdateCallback;
 import com.apgred.pojo.ForceUpdateModel;
 import com.apgred.pojo.HardUpdateOkayModel;
 import com.apgred.request.ForceUpdateRequest;
+import com.apgred.request.HardPushOkayRequest;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,11 +37,11 @@ public class ForceUpdate {
     }
 
 
-    void forceUpdateOkay(final ForceUpdateCallback forceUpdateCallback) {
+    void forceUpdateOkay(final ForceUpdateCallback forceUpdateCallback, HardPushOkayRequest hardPushOkayRequest) {
         ApgredNetworkClient
                 .getInstance()
                 .getRestClient()
-                .hardUpdateOkay()
+                .hardUpdateOkay(hardPushOkayRequest)
                 .enqueue(new Callback<HardUpdateOkayModel>() {
                     @Override
                     public void onResponse(Call<HardUpdateOkayModel> call, Response<HardUpdateOkayModel> response) {
