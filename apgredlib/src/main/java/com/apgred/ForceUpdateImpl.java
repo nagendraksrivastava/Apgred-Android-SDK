@@ -1,6 +1,7 @@
 package com.apgred;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.apgred.interfaces.ForceUpdateCallback;
@@ -28,19 +29,22 @@ public class ForceUpdateImpl implements ForceUpdateCallback {
     @Override
     public void onForceUpdateSuccess(ForceUpdateModel forceUpdateModel) {
         Logger.logDebug(TAG, "onForceUpdateSuccess");
-        if (forceUpdateModel.getHardPush()) {
-            Logger.logDebug(TAG, "Hard push is true");
-            ApgredDialog.getInstance().showDialog(
-                    mContext, forceUpdateModel.getDialogTitle(), forceUpdateModel.getDialogText(),
-                    forceUpdateModel.getStoreUrl(), false,
-                    forceUpdateModel.getDialogPostiveText(), forceUpdateModel.getDialogCancelButton(), this);
-        } else if (forceUpdateModel.getSoftPush()) {
-            Logger.logDebug(TAG, " soft  push is true");
-            ApgredDialog.getInstance().showDialog(
-                    mContext, forceUpdateModel.getDialogTitle(), forceUpdateModel.getDialogText(),
-                    forceUpdateModel.getStoreUrl(), true,
-                    forceUpdateModel.getDialogPostiveText(), forceUpdateModel.getDialogCancelButton(), this);
-        }
+        Intent dialogIntent = new Intent(mContext, ApgredDialogActivity.class);
+        dialogIntent.putExtra("force_update_model", forceUpdateModel);
+        mContext.startActivity(dialogIntent);
+//        if (forceUpdateModel.getHardPush()) {
+//            Logger.logDebug(TAG, "Hard push is true");
+//            ApgredDialog.getInstance().showDialog(
+//                    mContext, forceUpdateModel.getDialogTitle(), forceUpdateModel.getDialogText(),
+//                    forceUpdateModel.getStoreUrl(), false,
+//                    forceUpdateModel.getDialogPostiveText(), forceUpdateModel.getDialogCancelButton(), this);
+//        } else if (forceUpdateModel.getSoftPush()) {
+//            Logger.logDebug(TAG, " soft  push is true");
+//            ApgredDialog.getInstance().showDialog(
+//                    mContext, forceUpdateModel.getDialogTitle(), forceUpdateModel.getDialogText(),
+//                    forceUpdateModel.getStoreUrl(), true,
+//                    forceUpdateModel.getDialogPostiveText(), forceUpdateModel.getDialogCancelButton(), this);
+//        }
     }
 
     @Override

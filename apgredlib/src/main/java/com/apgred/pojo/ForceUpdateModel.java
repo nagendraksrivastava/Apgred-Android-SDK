@@ -1,9 +1,12 @@
 package com.apgred.pojo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ForceUpdateModel {
+public class ForceUpdateModel implements Parcelable {
 
     @SerializedName("status")
     @Expose
@@ -94,4 +97,46 @@ public class ForceUpdateModel {
         this.dialogCancelButton = dialogCancelButton;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(this.status, flags);
+        dest.writeValue(this.softPush);
+        dest.writeValue(this.hardPush);
+        dest.writeString(this.storeUrl);
+        dest.writeString(this.dialogText);
+        dest.writeString(this.dialogPostiveText);
+        dest.writeString(this.dialogTitle);
+        dest.writeString(this.dialogCancelButton);
+    }
+
+    public ForceUpdateModel() {
+    }
+
+    protected ForceUpdateModel(Parcel in) {
+        this.status = in.readParcelable(Status.class.getClassLoader());
+        this.softPush = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.hardPush = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.storeUrl = in.readString();
+        this.dialogText = in.readString();
+        this.dialogPostiveText = in.readString();
+        this.dialogTitle = in.readString();
+        this.dialogCancelButton = in.readString();
+    }
+
+    public static final Parcelable.Creator<ForceUpdateModel> CREATOR = new Parcelable.Creator<ForceUpdateModel>() {
+        @Override
+        public ForceUpdateModel createFromParcel(Parcel source) {
+            return new ForceUpdateModel(source);
+        }
+
+        @Override
+        public ForceUpdateModel[] newArray(int size) {
+            return new ForceUpdateModel[size];
+        }
+    };
 }
