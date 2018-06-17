@@ -33,6 +33,6 @@ public final class Apgred {
             throw new IllegalArgumentException("Context must application context which can " +
                     "be get by using getApplicationContext() ");
         }
-        new ValidateImpl(context).validateClient(token, clientSecret);
+        new ValidateImpl(context, clientSecret, token).validateClient();
     }
 }

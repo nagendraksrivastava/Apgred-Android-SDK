@@ -11,7 +11,7 @@ public class ForceUpdateRequest {
     @SerializedName("os")
     @Expose
     private String os;
-    @SerializedName("os_versions")
+    @SerializedName("os_version")
     @Expose
     private String osVersions;
     @SerializedName("client_secret")

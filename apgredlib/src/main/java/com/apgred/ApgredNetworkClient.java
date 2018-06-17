@@ -1,6 +1,7 @@
 package com.apgred;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -10,10 +11,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public final class ApgredNetworkClient {
 
-    private String BASE_URL = "somthing over here ";
+    private static final String BASE_URL = "http://192.168.0.103:8000/";
     private static ApgredNetworkClient INSTANCE;
-
-    private OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     public static ApgredNetworkClient getInstance() {
         synchronized (ApgredNetworkClient.class) {
@@ -25,11 +24,15 @@ public final class ApgredNetworkClient {
     }
 
     public ApgredRestClient getRestClient() {
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
+        clientBuilder.addInterceptor(loggingInterceptor);
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create());
 
-        Retrofit retrofit = builder.client(httpClient.build()).build();
+        Retrofit retrofit = builder.client(clientBuilder.build()).build();
         return retrofit.create(ApgredRestClient.class);
 
     }

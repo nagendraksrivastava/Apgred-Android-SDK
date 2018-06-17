@@ -20,21 +20,21 @@ import retrofit2.http.POST;
 
 public interface ApgredRestClient {
 
-    @POST("/validateclient")
+    @POST("unnayan/v1/validateclient/")
     Call<ValidateResponse> validateClient(@Body ValidateRequest validateRequest);
 
-    @POST("/register")
+    @POST("unnayan/v1/register/")
     Call<RegisterModel> registerDevice(@Body RegisterDeviceRequest registerDeviceRequest);
 
-    @POST("/softupdatecancel")
+    @POST("unnayan/v1/softupdatecancel/")
     Call<SoftupdateCancelModel> softUpdateCancelled();
 
-    @POST("/softupdate")
+    @POST("unnayan/v1/softupdate/")
     Call<SoftUpdateOkayModel> softUpdateOkay();
 
-    @POST("/hardupdate")
+    @POST("unnayan/v1/hardupdate/")
     Call<HardUpdateOkayModel> hardUpdateOkay();
 
-    @POST("/forceupdate")
+    @POST("unnayan/v1/forceupdate/")
     Call<ForceUpdateModel> forceUpdate(@Body ForceUpdateRequest forceUpdateRequest);
 }

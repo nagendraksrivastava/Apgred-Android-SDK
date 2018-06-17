@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Build;
 import android.provider.Settings;
 
+import com.apgred.BuildConfig;
+
 public class ApgredUtils {
 
     public static String getAdvertisingId(Context context) {

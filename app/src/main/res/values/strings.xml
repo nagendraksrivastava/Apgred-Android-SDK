@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Apgred</string>
+    <string name="client_secret">nagendra</string>
+    <string name="client_token">nagendra_token</string>
+    <string name="text_ok">Ok</string>
 </resources>

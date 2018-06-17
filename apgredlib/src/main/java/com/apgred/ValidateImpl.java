@@ -7,27 +7,33 @@ import com.apgred.request.ValidateRequest;
 
 public class ValidateImpl implements ValidateCallback {
 
+    private static final String TAG = "ValidateImpl";
     private Context mContext;
+    private String mClientSecret;
+    private String mClientToken;
 
-    ValidateImpl(Context context) {
+    ValidateImpl(Context context, String clientSecret, String clientToken) {
         mContext = context;
+        mClientSecret = clientSecret;
+        mClientToken = clientToken;
     }
 
-    public void validateClient(String token, String clientSecret) {
+    public void validateClient() {
         ValidateRequest validateRequest = new ValidateRequest();
-        validateRequest.setAppToken(token);
-        validateRequest.setClientSecret(clientSecret);
+        validateRequest.setAppToken(mClientToken);
+        validateRequest.setClientSecret(mClientSecret);
         new ValidateClient().validateClient(validateRequest, this);
     }
 
 
     @Override
     public void onValidationSuccess() {
-        new RegisterImpl(mContext).register();
+        Logger.logDebug(TAG, "onValidationSuccess");
+        new RegisterImpl(mContext, mClientSecret, mClientToken).register();
     }
 
     @Override
     public void onValidationFailure() {
-
+        Logger.logDebug(TAG, "onValidationFailure");
     }
 }
