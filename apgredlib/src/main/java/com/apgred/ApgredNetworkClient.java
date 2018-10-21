@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public final class ApgredNetworkClient {
 
-    private static final String BASE_URL = "http://192.168.0.103:8000/";
+    private static final String BASE_URL = "http://apgred.com/api/";
     private static ApgredNetworkClient INSTANCE;
 
     public static ApgredNetworkClient getInstance() {

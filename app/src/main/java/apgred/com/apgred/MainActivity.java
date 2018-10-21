@@ -11,6 +11,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Apgred.getInstance().init(getApplicationContext(), "nagendra", "nagendra_token");
+        Apgred.getInstance().init(getApplicationContext(), getString(R.string.client_secret),
+                getString(R.string.client_token));
     }
 }
