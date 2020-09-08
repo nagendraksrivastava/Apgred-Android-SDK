@@ -1,5 +1,6 @@
 package apgred.com.apgred;
 
+import android.content.pm.PackageInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
